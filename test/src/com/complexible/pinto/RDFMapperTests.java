@@ -722,6 +722,7 @@ public class RDFMapperTests {
 	}
 
 	@Test
+	@Ignore
 	public void testWriteMap() throws Exception {
 		final ClassWithMap aObj = new ClassWithMap();
 

@@ -651,8 +651,20 @@ public class RDFMapperTests {
 	}
 
 	@Test
-	@Ignore
 	public void testReadEnumSet() throws Exception {
+		final Model aGraph = ModelIO.read(Files3.classPath("/data/enum.nt").toPath());
+
+		final ClassWithEnumSet aExpected = new ClassWithEnumSet();
+
+		EnumSet<TestEnum> testEnums=EnumSet.noneOf(TestEnum.class);
+		for(int i=0; i<10; i++){
+			testEnums.add(TestEnum.Bar);
+		}
+		aExpected.setEnums(testEnums);
+
+		final ClassWithEnum aResult = RDFMapper.create().readValue(aGraph, ClassWithEnum.class);
+
+		assertEquals(aExpected, aResult);
 	}
 
 	@Test

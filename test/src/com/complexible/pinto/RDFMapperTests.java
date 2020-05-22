@@ -662,7 +662,7 @@ public class RDFMapperTests {
 		}
 		aExpected.setEnums(testEnums);
 
-		final ClassWithEnum aResult = RDFMapper.create().readValue(aGraph, ClassWithEnum.class);
+		final ClassWithEnumSet aResult = RDFMapper.create().readValue(aGraph, ClassWithEnumSet.class);
 
 		assertEquals(aExpected, aResult);
 	}

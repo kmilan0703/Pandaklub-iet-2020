@@ -30,6 +30,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.hash.Hashing;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Literal;
@@ -52,6 +53,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -63,6 +65,12 @@ import static org.junit.Assert.assertTrue;
  * @author Michael Grove
  */
 public class RDFMapperTests {
+
+	@Before
+	public void setUp() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
+
 	@Test(expected = UnidentifiableObjectException.class)
 	public void testUnidentifiable() throws Exception {
 		RDFMapper aMapper = RDFMapper.builder()
@@ -722,7 +730,6 @@ public class RDFMapperTests {
 	}
 
 	@Test
-	@Ignore
 	public void testWriteMap() throws Exception {
 		final ClassWithMap aObj = new ClassWithMap();
 
@@ -738,8 +745,9 @@ public class RDFMapperTests {
 		                              .build()
 		                              .writeValue(aObj);
 
-		assertTrue(Models.isomorphic(aGraph,
-		                            ModelIO.read(Files3.classPath("/data/map.nt").toPath())));
+		final Model reference = ModelIO.read(Files3.classPath("/data/map.nt").toPath());
+
+		assertTrue(Models.isomorphic(aGraph, reference));
 	}
 
 	@Test

@@ -56,12 +56,13 @@ public final class Beans {
 	 *
 	 * @return true if its a primitive, false otherwise.
 	 */
-	public static boolean isPrimitive(Class theObj) {
+	public static boolean isPrimitive(Class <?> theObj) {
 		return (Boolean.class.equals(theObj) || Integer.class.equals(theObj) || Long.class.equals(theObj)
 		        || Short.class.equals(theObj) || Double.class.equals(theObj) || Float.class.equals(theObj)
 		        || Date.class.equals(theObj) || String.class.equals(theObj) || Character.class.equals(theObj)
 		        || java.net.URI.class.equals(theObj));
 	}
+
 
 	/**
 	 * Return an {@link Iterable} of the declared fields of the {@link Class}

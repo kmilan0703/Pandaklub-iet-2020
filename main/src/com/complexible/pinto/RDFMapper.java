@@ -30,7 +30,7 @@ import com.complexible.pinto.annotations.Iri;
 import com.complexible.pinto.annotations.RdfId;
 import com.complexible.pinto.annotations.RdfProperty;
 import com.complexible.pinto.annotations.RdfsClass;
-import com.google.common.base.Charsets;
+
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
@@ -68,6 +68,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,19 +236,19 @@ public final class RDFMapper {
 		}
 
 		for (PropertyDescriptor aDescriptor : PropertyUtils.getPropertyDescriptors(aInst)) {
-			if (isIgnored(aDescriptor)) {
+
+            final IRI aProperty = getProperty(aDescriptor);
+
+
+            Object aObj;
+            Collection<Value> aValues = theGraph.stream().filter(Statements.subjectIs(theObj).and(Statements.predicateIs(aProperty))).map(Statement::getObject).collect(Collectors.toList());
+
+            if (isIgnored(aDescriptor) ||aValues.isEmpty() ) {
 				continue;
 			}
 
-			final IRI aProperty = getProperty(aDescriptor);
 
-			Collection<Value> aValues = theGraph.stream().filter(Statements.subjectIs(theObj).and(Statements.predicateIs(aProperty))).map(Statement::getObject).collect(Collectors.toList());
 
-			Object aObj;
-
-			if (aValues.isEmpty()) {
-				continue;
-			}
 			else if (Collection.class.isAssignableFrom(aDescriptor.getPropertyType())) {
 				final Collection aIterable = mCollectionFactory.create(aDescriptor);
 
@@ -292,7 +293,8 @@ public final class RDFMapper {
 					final Value aKey = theGraph.stream().filter(Statements.subjectIs((Resource) aMapEntry).and(Statements.predicateIs(KEY))).map(Statement::getObject).findFirst().orElse(null);
 					final Value aValue = theGraph.stream().filter(Statements.subjectIs((Resource) aMapEntry).and(Statements.predicateIs(VALUE))).map(Statement::getObject).findFirst().orElse(null);
 
-					Object aKeyObj = null, aValueObj = null;
+					Object aKeyObj = null;
+                     Object aValueObj = null;
 
 					if (aKey instanceof Literal) {
 						// ok to pass null here, it won't be used
@@ -368,7 +370,7 @@ public final class RDFMapper {
 	}
 
 	private String expand(final String theValue) {
-		final int aIndex = theValue.indexOf(":");
+		final int aIndex = theValue.indexOf(':');
 		if (aIndex != -1) {
 			String aPrefix = theValue.substring(0, aIndex);
 			String aLocalName = theValue.substring(aIndex + 1);
@@ -422,14 +424,9 @@ public final class RDFMapper {
 
 			for (Map.Entry<String, Object> aEntry : PropertyUtils.describe(theValue).entrySet()) {
 				final PropertyDescriptor aDescriptor = PropertyUtils.getPropertyDescriptor(theValue, aEntry.getKey());
+                final IRI aProperty = getProperty(aDescriptor);
 
-				if (isIgnored(aDescriptor)) {
-					continue;
-				}
-
-				final IRI aProperty = getProperty(aDescriptor);
-
-				if (aProperty == null) {
+				if (isIgnored(aDescriptor) || (aProperty == null)) {
 					continue;
 				}
 
@@ -460,7 +457,7 @@ public final class RDFMapper {
 			theBuilder.addProperty(theProperty, enumToURI((Enum) theObj));
 		}
 		else if (Collection.class.isAssignableFrom(theObj.getClass())) {
-			final Collection aCollection = (Collection) theObj;
+			final Collection<?> aCollection = (Collection) theObj;
 
 			if (serializeCollectionsAsRDFList(thePropertyDescriptor)) {
 				List<Value> aList = Lists.newArrayListWithExpectedSize(aCollection.size());
@@ -658,9 +655,9 @@ public final class RDFMapper {
 		else {
 			Resource aResource = (Resource) theValue;
 
-			final Class aClass = pinpointClass(theGraph, aResource, theDescriptor);
+			final Class <?> aClass = pinpointClass(theGraph, aResource, theDescriptor);
 
-			RDFCodec aCodec = mCodecs.get(aClass);
+			RDFCodec<?>  aCodec = mCodecs.get(aClass);
 			if (aCodec != null) {
 				return aCodec.readValue(theGraph, aResource);
 			}
@@ -671,7 +668,7 @@ public final class RDFMapper {
 	}
 
 	private Class pinpointClass(final Model theGraph, final Resource theResource, final PropertyDescriptor theDescriptor) {
-		Class aClass = theDescriptor.getPropertyType();
+		Class<?>  aClass = theDescriptor.getPropertyType();
 
 		if (Collection.class.isAssignableFrom(aClass)) {
 			// if the field we're assigning from is a collection, try and figure out the type of the thing
@@ -680,7 +677,6 @@ public final class RDFMapper {
 			Type[] aTypes = null;
 
 			if (theDescriptor.getReadMethod().getGenericParameterTypes().length > 0) {
-				// should this be the return type? eg new Type[] { theDescriptor.getReadMethod().getGenericReturnType() };
 				aTypes = theDescriptor.getReadMethod().getGenericParameterTypes();
 			}
 			else if (theDescriptor.getWriteMethod().getGenericParameterTypes().length > 0) {
@@ -741,13 +737,10 @@ public final class RDFMapper {
 			for (Resource aType : aRdfTypes) {
 				Class<?> aMappedClass = mMappings.get(aType);
 				if (aMappedClass != null) {
-					if (aCurr == null) {
+					if (aCurr == null || (aCurr.isAssignableFrom(aMappedClass))) {
 						aCurr = aMappedClass;
 					}
-					else if (aCurr.isAssignableFrom(aMappedClass)) {
-						// we want the most specific class, that's likely to be what's instantiable
-						aCurr = aMappedClass;
-					}
+
 				}
 			}
 
@@ -906,7 +899,7 @@ public final class RDFMapper {
 						continue;
 					}
 
-					aFunc.putString(aValue.toString(), Charsets.UTF_8);
+					aFunc.putString(aValue.toString(), StandardCharsets.UTF_8);
 				}
 				catch (Exception e) {
 					Throwables.propagateIfInstanceOf(e, RDFMappingException.class);
@@ -933,7 +926,7 @@ public final class RDFMapper {
 		else {
 			if (aId == null) {
 				aId = mValueFactory.createIRI(mDefaultNamespace + Hashing.md5().newHasher()
-				                                                         .putString(theT.toString(), Charsets.UTF_8)
+				                                                         .putString(theT.toString(), StandardCharsets.UTF_8)
 				                                                         .hash().toString());
 			}
 
@@ -1181,7 +1174,7 @@ public final class RDFMapper {
 				// default constructor, which is true of all the core maps.
 				return (Map) aType.newInstance();
 			}
-			catch (Throwable e) {
+			catch (Exception e) {
 				LOGGER.warn("{} uses a map type, but it cannot be instantiated, using a default LinkedHashMap", theDescriptor);
 			}
 
@@ -1211,7 +1204,7 @@ public final class RDFMapper {
 				// default constructor, which is true of all the core collections.
 				return (Collection) aType.newInstance();
 			}
-			catch (Throwable e) {
+			catch (Exception e) {
 				if (List.class.isAssignableFrom(aType)) {
 					return Lists.newArrayList();
 				}

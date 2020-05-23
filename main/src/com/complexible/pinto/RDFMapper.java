@@ -655,7 +655,7 @@ public final class RDFMapper {
 		else {
 			Resource aResource = (Resource) theValue;
 
-			final Class <?> aClass = pinpointClass(theGraph, aResource, theDescriptor);
+			final Class aClass = pinpointClass(theGraph, aResource, theDescriptor);
 
 			RDFCodec<?>  aCodec = mCodecs.get(aClass);
 			if (aCodec != null) {

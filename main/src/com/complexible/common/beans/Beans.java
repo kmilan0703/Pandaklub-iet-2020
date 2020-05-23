@@ -63,6 +63,7 @@ public final class Beans {
 		        || java.net.URI.class.equals(theObj));
 	}
 
+
 	/**
 	 * Return an {@link Iterable} of the declared fields of the {@link Class}
 	 *

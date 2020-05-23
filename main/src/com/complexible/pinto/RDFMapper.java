@@ -652,10 +652,10 @@ public final class RDFMapper {
 
 			return null;
 		}
-		else {
+		else if(theDescriptor != null){
 			Resource aResource = (Resource) theValue;
 
-			final Class aClass = pinpointClass(theGraph, aResource, theDescriptor);
+			final Class <?> aClass = pinpointClass(theGraph, aResource, theDescriptor);
 
 			RDFCodec<?>  aCodec = mCodecs.get(aClass);
 			if (aCodec != null) {
@@ -664,6 +664,8 @@ public final class RDFMapper {
 			else {
 				return readValue(theGraph, aClass, aResource);
 			}
+		} else {
+			return null;
 		}
 	}
 

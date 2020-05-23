@@ -738,10 +738,10 @@ public final class RDFMapper {
 			final Iterable<Resource> aRdfTypes = Models2.getTypes(theGraph, theResource);
 			for (Resource aType : aRdfTypes) {
 				Class<?> aMappedClass = mMappings.get(aType);
-				if (aMappedClass != null) {
-					if (aCurr == null || (aCurr.isAssignableFrom(aMappedClass))) {
+				if (aMappedClass != null && (aCurr == null || (aCurr.isAssignableFrom(aMappedClass)))) {
+
 						aCurr = aMappedClass;
-					}
+					
 
 				}
 			}

@@ -1,0 +1,38 @@
+plugins {
+  id 'idea'
+  id 'java'
+  id 'maven'
+}
+
+wrapper {
+	gradleVersion = '6.3'
+	distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'main/src'
+		}
+		resources {
+			srcDir 'main/resources'
+		}
+	}
+}
+
+group = "com.pandaklub.iet-hf"
+version = "1.0-SNAPSHOT"
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+	maven {
+		url "http://maven.stardog.com"
+	}
+}
+
+dependencies {
+    compile "com.complexible.pinto:Pandaklub-iet-2020:2.0.1-SNAPSHOT"
+	compile "org.openrdf.sesame:sesame-rio-rdfxml:4.0.0"
+}
+

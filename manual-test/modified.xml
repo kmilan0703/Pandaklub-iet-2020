@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+	<dataProperties xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#age"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#age">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<namedIndividuals xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Alice"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Alice">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<age xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">42</age>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<namedIndividuals xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Bob"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Bob">
+	<mother xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Alice"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Charlie">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<age xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">36</age>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Bob">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<age xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</age>
+	<father xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Charlie"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<namedIndividuals xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Charlie"/>
+	<namedIndividuals xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Dan"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Dan">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<age xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</age>
+	<mother xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Alice"/>
+	<father xmlns="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#Charlie"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<objectProperties xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#father"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#father">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20">
+	<objectProperties xmlns="tag:complexible:pinto:" rdf:resource="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#mother"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20#mother">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+
+</rdf:RDF>

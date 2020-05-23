@@ -57,6 +57,7 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -408,7 +409,7 @@ public class RDFMapperTests {
 
 		Model aGraph = RDFMapper.create().writeValue(aPerson);
 
-		assertTrue(aPerson.id() != null);
+		assertNotNull(aPerson.id());
 
 		assertEquals(1, aGraph.size());
 

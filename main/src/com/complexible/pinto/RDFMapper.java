@@ -158,7 +158,7 @@ public final class RDFMapper {
 
 	private <T> T newInstance(final Class<T> theClass) {
 		try {
-			return theClass.newInstance();
+			return theClass.getDeclaredConstructor().newInstance();
 		}
 		catch (Exception e) {
 			throw new RDFMappingException(String.format("Could not create an instance of %s, it does not have a default constructor", theClass));
@@ -204,13 +204,9 @@ public final class RDFMapper {
 
 	private static boolean isIgnored(final PropertyDescriptor thePropertyDescriptor) {
 		// we'll ignore getClass() on the bean
-		if (thePropertyDescriptor.getName().equals("class")
-		    && thePropertyDescriptor.getReadMethod().getDeclaringClass() == Object.class
-		    && thePropertyDescriptor.getReadMethod().getReturnType().equals(Class.class)) {
-			return  true;
-		}
-
-		return false;
+		return thePropertyDescriptor.getName().equals("class")
+		&& thePropertyDescriptor.getReadMethod().getDeclaringClass() == Object.class
+		&& thePropertyDescriptor.getReadMethod().getReturnType().equals(Class.class);
 	}
 
 	/**
@@ -1174,7 +1170,7 @@ public final class RDFMapper {
 			try {
 				// try creating a new instance.  this will work if they've specified a concrete type *and* it has a
 				// default constructor, which is true of all the core maps.
-				return (Map) aType.newInstance();
+				return (Map) aType.getDeclaredConstructor().newInstance();
 			}
 			catch (Exception e) {
 				LOGGER.warn("{} uses a map type, but it cannot be instantiated, using a default LinkedHashMap", theDescriptor);
@@ -1204,7 +1200,7 @@ public final class RDFMapper {
 			try {
 				// try creating a new instance.  this will work if they've specified a concrete type *and* it has a
 				// default constructor, which is true of all the core collections.
-				return (Collection) aType.newInstance();
+				return (Collection) aType.getDeclaredConstructor().newInstance();
 			}
 			catch (Exception e) {
 				if (List.class.isAssignableFrom(aType)) {

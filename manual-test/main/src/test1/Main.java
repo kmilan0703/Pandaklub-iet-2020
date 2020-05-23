@@ -1,3 +1,5 @@
+package test1;
+
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Main {
         RDFMapper mapper = RDFMapper.create();
 
         // Load model
-        Model original = ModelIO.read(new FileInputStream("original.xml"), RDFFormat.RDFXML);
+        Model original = ModelIO.read(new FileInputStream("original1.xml"), RDFFormat.RDFXML);
 
         // Map model to Java Bean
         Ontology o = mapper.readValue(original, Ontology.class, SimpleValueFactory.getInstance().createIRI("http://www.semanticweb.org/cloud/ontologies/2020/4/untitled-ontology-20"));
@@ -38,6 +40,6 @@ public class Main {
         Model modified = mapper.writeValue(o);
 
         // Write model
-        ModelIO.write(modified, new FileWriter("modified.xml"), RDFFormat.RDFXML);
+        ModelIO.write(modified, new FileWriter("modified1.xml"), RDFFormat.RDFXML);
     }
 }

@@ -1,5 +1,9 @@
+package test1;
+
 import com.complexible.pinto.Identifiable;
 import com.complexible.pinto.annotations.RdfsClass;
+import common.DataProperty;
+import common.ObjectProperty;
 import org.openrdf.model.Resource;
 import org.openrdf.model.impl.SimpleValueFactory;
 

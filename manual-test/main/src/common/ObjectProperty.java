@@ -1,16 +1,18 @@
+package common;
+
 import com.complexible.pinto.Identifiable;
 import com.complexible.pinto.annotations.RdfsClass;
 import org.openrdf.model.Resource;
 import org.openrdf.model.impl.SimpleValueFactory;
 
-@RdfsClass("http://www.w3.org/2002/07/owl#DatatypeProperty")
-public class DataProperty implements Identifiable {
+@RdfsClass("http://www.w3.org/2002/07/owl#ObjectProperty")
+public class ObjectProperty implements Identifiable {
     private String name;
 
-    public DataProperty() {
+    public ObjectProperty() {
     }
 
-    public DataProperty(String name) {
+    public ObjectProperty(String name) {
         this.name = name;
     }
 

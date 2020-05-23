@@ -1,10 +1,11 @@
+package test1;
+
 import com.complexible.pinto.Identifiable;
 import com.complexible.pinto.annotations.RdfProperty;
 import com.complexible.pinto.annotations.RdfsClass;
 import org.openrdf.model.Resource;
 import org.openrdf.model.impl.SimpleValueFactory;
 
-import java.util.List;
 import java.util.Objects;
 
 @RdfsClass("http://www.w3.org/2002/07/owl#NamedIndividual")

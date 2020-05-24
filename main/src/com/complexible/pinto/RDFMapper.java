@@ -671,7 +671,7 @@ public final class RDFMapper {
 	}
 
 
-	private Class<?> pinpointClass(final Model theGraph, final Resource theResource, final PropertyDescriptor theDescriptor) {
+	private Class pinpointClass(final Model theGraph, final Resource theResource, final PropertyDescriptor theDescriptor) {
 		Class<?>  aClass = theDescriptor.getPropertyType();
 
 		if (Collection.class.isAssignableFrom(aClass)) {
@@ -731,7 +731,7 @@ public final class RDFMapper {
 				}
 			}
 			else {
-				LOGGER.info(String.format("Could not find type for collection %s",  aClass));
+				LOGGER.info("Could not find type for collection %s",  aClass);
 			}
 		}
 		else if (!Classes.isInstantiable(aClass) || !Classes.hasDefaultConstructor(aClass)) {
@@ -1144,7 +1144,7 @@ public final class RDFMapper {
 	 * @see DefaultCollectionFactory
 	 */
 	public interface CollectionFactory {
-		public Collection<?> create(final PropertyDescriptor thePropertyDescriptor);
+		public Collection create(final PropertyDescriptor thePropertyDescriptor);
 	}
 
 	/**

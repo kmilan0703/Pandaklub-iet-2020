@@ -18,7 +18,6 @@ package com.complexible.common.beans;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.Iterator;
 
 import com.google.common.collect.AbstractIterator;
 
@@ -71,40 +70,37 @@ public final class Beans {
 	 * @return          the declared fields
 	 */
 	public static Iterable<Field> getDeclaredFields(final Class<?> theClass) {
-		return new Iterable<Field>() {
-			public Iterator<Field> iterator() {
-				return new AbstractIterator<Field>() {
-					private Class<?> mCurr = theClass;
+		return () ->
+			 new AbstractIterator<Field>() {
+				private Class<?> mCurr = theClass;
 
-					private Field[] mCurrFields = new Field[0];
+				private Field[] mCurrFields = new Field[0];
 
-					private int mIndex = 0;
+				private int mIndex = 0;
 
-					/**
-					 * {@inheritDoc}
-					 */
-					@Override
-					protected Field computeNext() {
+				/**
+				 * {@inheritDoc}
+				 */
+				@Override
+				protected Field computeNext() {
+
+					if (mIndex < mCurrFields.length) {
+						return mCurrFields[mIndex++];
+					}
+
+					while (mIndex == mCurrFields.length && mCurr != null) {
+						mCurrFields = mCurr.getDeclaredFields();
+						mCurr = mCurr.getSuperclass();
+						mIndex = 0;
 
 						if (mIndex < mCurrFields.length) {
 							return mCurrFields[mIndex++];
 						}
-
-						while (mIndex == mCurrFields.length && mCurr != null) {
-							mCurrFields = mCurr.getDeclaredFields();
-							mCurr = mCurr.getSuperclass();
-							mIndex = 0;
-
-							if (mIndex < mCurrFields.length) {
-								return mCurrFields[mIndex++];
-							}
-						}
-
-						return endOfData();
 					}
-				};
-			}
-		};
+
+					return endOfData();
+				}
+			};
 	}
 
 	/**
@@ -114,9 +110,8 @@ public final class Beans {
 	 * @return          the declared methods
 	 */
 	public static Iterable<Method> getDeclaredMethods(final Class<?> theClass) {
-		return new Iterable<Method>() {
-			public Iterator<Method> iterator() {
-				return new AbstractIterator<Method>() {
+		return () ->
+				new AbstractIterator<Method>() {
 					private Class<?> mCurr = theClass;
 
 					private Method[] mMethods = new Method[0];
@@ -145,7 +140,5 @@ public final class Beans {
 						return endOfData();
 					}
 				};
-			}
-		};
 	}
 }

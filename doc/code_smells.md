@@ -1,5 +1,5 @@
 A kód minőségén a fájlokban található code smell-ek refaktorálásával javítottunk. Ezeket Sonar segítségével kerestük meg. 
-![](doc/images/sonar.png)
+![](images/sonar.png)
 
 
 Voltak nagyon gyorsan és könnyen kijavítható code smell-ek, például:

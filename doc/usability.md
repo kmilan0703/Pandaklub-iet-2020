@@ -17,7 +17,7 @@ Ez a tulajdonság valamilyen szinten adódik az első szempontból. Mivel a kere
 
 **4. Hibatűrés**
 
-Ebből a szempontból vannak hiányosságai a keretrendszernek. A manual-test.md fájlban leírt manuális tesztelés során kiderült, hogy a végtelen irányú konverzió oda-vissza irányba is problémát okoz, az alkalmazás StackOverflowError-ral kilép. 
+Ebből a szempontból vannak hiányosságai a keretrendszernek. A manual-test.md fájlban leírt manuális tesztelés során kiderült, hogy a végtelen rekurzió oda-vissza irányba is problémát okoz, az alkalmazás StackOverflowError-ral kilép. 
 
 **5. Elégedettség**
 

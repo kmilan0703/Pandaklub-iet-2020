@@ -315,16 +315,6 @@ public class RDFMapperTests {
 	}
 
 	@Test
-	@Ignore
-	public void testURIMapping() throws Exception {
-		// alternative to RdfsClass, verify that if you specify a type URI -> class mapping it is used
-		// test 1, that the rdf:type is included in a top level class
-		// test 2, that the type can be used to find the correct implementation for a property
-		//         eg:  Object getFoo() -> this will be populated by a individual w/ a type :Bar to the class Baz
-		//              so the mapping would specify :Bar <-> Baz
-	}
-
-	@Test
 	public void testUseRdfIdForIdentification() throws Exception {
 		// require ids so the default id generation cannot be used
 		RDFMapper aMapper = RDFMapper.builder()
@@ -472,17 +462,6 @@ public class RDFMapperTests {
 		// id might be different every time since we have no inputs to the id hash, so we'll just rely on the count
 		// here when checking for correctness.
 		assertEquals(2, aGraph.size());
-	}
-
-	@Test
-	@Ignore
-	public void testProxyCreation() throws Exception {
-
-		//		assertTrue(aResult instanceof Identifiable);
-		//
-		//		assertTrue(aResult instanceof SourcedObject);
-
-		// and also get the values from the objects
 	}
 
 	@Test
@@ -649,41 +628,6 @@ public class RDFMapperTests {
 		final ClassWithEnum aResult = RDFMapper.create().readValue(aGraph, ClassWithEnum.class);
 
 		assertEquals(aExpected, aResult);
-	}
-
-	@Test
-	@Ignore
-	public void testReadEnumSet() throws Exception {
-	}
-
-	@Test
-	@Ignore
-	public void testWriteEnumSet() throws Exception {
-	}
-
-	@Test
-	@Ignore
-	public void testReadCustomCollectionMapping() throws Exception {
-	}
-
-	@Test
-	@Ignore
-	public void testWriteWithLangTag() throws Exception {
-	}
-
-	@Test
-	@Ignore
-	public void testReadWithLangTag() throws Exception {
-	}
-
-	@Test(expected = RDFMappingException.class)
-	@Ignore
-	public void testMultipleValuesForNonIterableProperty() throws Exception {
-	}
-
-	@Test(expected = RDFMappingException.class)
-	@Ignore
-	public void testCharBeanTypeWithLongString() throws Exception {
 	}
 
 	@Test(expected = RDFMappingException.class)

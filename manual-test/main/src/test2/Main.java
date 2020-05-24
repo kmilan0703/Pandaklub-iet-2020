@@ -8,7 +8,6 @@ import org.openrdf.rio.RDFFormat;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.util.List;
 
 public class Main {
 

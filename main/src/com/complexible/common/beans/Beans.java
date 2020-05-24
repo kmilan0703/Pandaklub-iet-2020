@@ -14,8 +14,6 @@
  */
 
 package com.complexible.common.beans;
-
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -60,47 +58,6 @@ public final class Beans {
 		        || Short.class.equals(theObj) || Double.class.equals(theObj) || Float.class.equals(theObj)
 		        || Date.class.equals(theObj) || String.class.equals(theObj) || Character.class.equals(theObj)
 		        || java.net.URI.class.equals(theObj));
-	}
-
-
-	/**
-	 * Return an {@link Iterable} of the declared fields of the {@link Class}
-	 *
-	 * @param theClass  the class
-	 * @return          the declared fields
-	 */
-	public static Iterable<Field> getDeclaredFields(final Class<?> theClass) {
-		return () ->
-			 new AbstractIterator<Field>() {
-				private Class<?> mCurr = theClass;
-
-				private Field[] mCurrFields = new Field[0];
-
-				private int mIndex = 0;
-
-				/**
-				 * {@inheritDoc}
-				 */
-				@Override
-				protected Field computeNext() {
-
-					if (mIndex < mCurrFields.length) {
-						return mCurrFields[mIndex++];
-					}
-
-					while (mIndex == mCurrFields.length && mCurr != null) {
-						mCurrFields = mCurr.getDeclaredFields();
-						mCurr = mCurr.getSuperclass();
-						mIndex = 0;
-
-						if (mIndex < mCurrFields.length) {
-							return mCurrFields[mIndex++];
-						}
-					}
-
-					return endOfData();
-				}
-			};
 	}
 
 	/**

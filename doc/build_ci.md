@@ -48,3 +48,16 @@ Az projekt eredetileg a a Gradle-t a `http://services.gradle.org/distributions/g
 A címet módosítottam http-ről https-re, így az új cím `https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip` lett, innen már sikeres volt a Gradle letöltése.
 
 Frissítettem a Gradle Wrapper-t a `gradle wrapper` parancs segítségével, a módosítások után a projekt hiba nélkül fordítható a `./gradlew build` parancs segítségével
+
+# CI (Github Actions) beüzemelése
+A projekthez folytonos integrációs megoldásként Github Actions-t használunk. Minden `master` branch-re nyitott Pull Request, vagy `master` branch-re való merge esetén automatikusan lefut a Gradle build, és ennek eredménye megjelenik a commit / pull request mellett.
+
+A Github Actions által a projekten futtatott parancsok:
+* `chmod +x gradlew` - futtatási jogot ad a `gradlew` fájlnak
+* `./gradlew build` - futtatja a build-et
+
+Egy sikeres és egy sikertelen build Github-on a következő képpen jelentek meg:
+
+![Github build eredmény](images/github_ci.png)
+
+A sikertelen build-ekről továbbá Github email-t is küldött a commit tulajdonosának.

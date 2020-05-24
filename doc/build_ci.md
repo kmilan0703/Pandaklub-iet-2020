@@ -1,5 +1,5 @@
 # Build keretrendszer (Gradle) frissítése
-A projekt kezdteben Gradle 2.0-át használt, amit 2014-ben adtak ki. Ez a Gradle verzió egy régebbi szintaxist használt, ami azt eredményezte, hogy a legtöbb online dokumentációben leírt kód (pl. SonarQube Gradle integrálás) nem működött a projekel.
+A projekt kezdetben Gradle 2.0-át használt, amit 2014-ben adtak ki. Ez a Gradle verzió egy régebbi szintaxist használt, ami azt eredményezte, hogy a legtöbb online dokumentációban leírt kód (pl. SonarQube Gradle integrálás) nem működött a projekttel.
 
 A projekt letöltése után a Gradle Wrapper (`gradlew`) segítségével egyáltalán nem is lehetett lefordítani a kódot, mivel futtatáskor a következő hibaüzenetet adta:
 
@@ -10,7 +10,7 @@ Exception in thread "main" java.io.IOException: Server returned HTTP response co
 ```
 
 ## Gradle verzió frissítése
-A Gradle aktualizálásához a projektet frissítettem Gradlde 6.3-ra (2020. márciusban adták ki). Ehhez a build.gradle fájlban átírtam a `gradleVersion` kulcs értékét `2.0`-ról `6.3`-ra. A build.gradle fájlon további módosításokat is végeztem, hogy a firssebb szintaktikát használja (a régi szintaktikával sikertelen volt a build).
+A Gradle aktualizálásához a projektet frissítettem Gradle 6.3-ra (2020. márciusban adták ki). Ehhez a build.gradle fájlban átírtam a `gradleVersion` kulcs értékét `2.0`-ról `6.3`-ra. A build.gradle fájlon további módosításokat is végeztem, hogy a frissebb szintaktikát használja (a régi szintaktikával sikertelen volt a build).
 
 ### Wrapper
 #### Régi szintaktika
@@ -43,7 +43,7 @@ plugins {
 ```
 
 ## Gradle Wrapper kijavítása
-Az projekt eredetileg a a Gradle-t a `http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip` oldalról próbálta letölteni, ez minden alkalommal sikertelen volt (`HTTP 403`).
+A projekt eredetileg a Gradle-t a `http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip` oldalról próbálta letölteni, ez minden alkalommal sikertelen volt (`HTTP 403`).
 
 A címet módosítottam http-ről https-re, így az új cím `https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip` lett, innen már sikeres volt a Gradle letöltése.
 
@@ -60,4 +60,4 @@ Egy sikeres és egy sikertelen build Github-on a következő képpen jelentek me
 
 ![Github build eredmény](images/github_ci.png)
 
-A sikertelen build-ekről továbbá Github email-t is küldött a commit tulajdonosának.
+A sikertelen build-ekről továbbá a Github email-t is küldött a commit tulajdonosának.

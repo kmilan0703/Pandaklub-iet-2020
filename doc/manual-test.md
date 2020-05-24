@@ -2,19 +2,19 @@
 ## Tesztelési módszer
 Mivel a projekt egy osztálykönyvtár a futtatásához, így a manuális teszteléshez is szükség volt egy kis alkalmazásra ami használja a tesztelendő osztályt.
 
-Erre a célra létrehoztam a repository-n belül egy új gradle projektet a `manual-test` könyvtár alatt, amiben függőségként felvettem a tesztelendő könyvátrat.
+Erre a célra létrehoztam a repository-n belül egy új gradle projektet a `manual-test` könyvtár alatt, amiben függőségként felvettem a tesztelendő könyvtárat.
 
 ### A teszt alkalmazás futtatása:
-Először a fő projektet kell lefordítani, és telepíteni a lokális maven repository-ba a `./gradlew build install` parancsal, ezután már a teszt projekt is fordítaható a `./gradlew build` parancssal. A projekt több tesztesetet is tartalmaz. Ezek önálló package-ekben helyezkezdnek el a `main/src` könyvtár alatt (a `common` könyvtár több teszt által is használt osztályokat tartalmazza). Minden teszt package tartalmaz egy Main osztályt, az ezekben található main metódus futtatásával futtatható a teszt.
+Először a fő projektet kell lefordítani, és telepíteni a lokális maven repository-ba a `./gradlew build install` parancsal, ezután már a teszt projekt is fordítható a `./gradlew build` parancssal. A projekt több tesztesetet is tartalmaz. Ezek önálló package-ekben helyezkezdnek el a `main/src` könyvtár alatt (a `common` könyvtár több teszt által is használt osztályokat tartalmazza). Minden teszt package tartalmaz egy Main osztályt, az ezekben található main metódus futtatásával futtatható a teszt.
 
 ## Futtatott tesztesetek
-A teszteléshez a következő lépseket végeztem el
-1. Készítetttem egy egszerű ontológiát a Protege szerkesztő eszköz segítségével, majd azt elmentettem RDF/XML formátumban
+A teszteléshez a következő lépéseket végeztem el
+1. Készítettem egy egyszerű ontológiát a Protege szerkesztő eszköz segítségével, majd azt elmentettem RDF/XML formátumban
 1. Az ontológiához elkészítettem a megfelelő Java Bean osztályokat
 1. Az ontológiát a Java alkalmazás beolvasta az elmentett xml fájlból
 1. A beolvasott modellt a tesztelés alatt lévő Pinto könyvtár segítségével Java Bean-né alakította
 1. Az így előállt Java objektumokon módosítást végzett
-1. A módosított objektumokat ismét a Pinto könyvtár segítségével visszalakította RDF modellé
+1. A módosított objektumokat ismét a Pinto könyvtár segítségével visszaalakította RDF modellé
 1. A modellt RDF/XML formátumban egy fájlba mentette
 1. Az így létrehozott új ontológiát a Protege szerkesztő segítségével ellenőriztem
 
@@ -32,7 +32,7 @@ Ahhoz, hogy a Pinto könyvtár megfelelően Java Bean-ekké tudja alakítani az 
 
 ![Teszt 1 Protege annotációk](../manual-test/images/annotations.PNG)
  
-Ezek határozzák meg, hogy az átalakíŧás során mely értékek és referenciák mely tagváltozókba kerüljenek.
+Ezek határozzák meg, hogy az átalakítás során mely értékek és referenciák mely tagváltozókba kerüljenek.
  
 A `main` metódus futtatásakor a teszt sikeresen lefut. A modellhez hozzáad még egy embert Dan néven és létrejön a `modified1.xml` fájl ami a módosított ontológiát tartalmazza. A módosítások után elvárt modell:
 
@@ -71,7 +71,7 @@ Ennek az oka nagy valószínűséggel az előző teszt során felfedezett hiba. 
 A javítás egy lehetséges módja, ha átalakításkor számontartaná az eddig létrehozott objektumokat, és ID alapján keresne köztük új objektum létrehozása előtt.
 
 ### Teszt 3
-Az előző tesztben feltárt hiba fordított irányú tesztje. Ebben a tesztben létrehoztam 2 Java objektumot amik egymásra tartalmaztak referenciát. Ezeket az objektumokat próbáltam meg RDF modellé alakítani. Az előző teszthez hasonlóan az teszt alkalmazás ismét kilépett `StackOverflowError`-ral:
+Az előző tesztben feltárt hiba fordított irányú tesztje. Ebben a tesztben létrehoztam 2 Java objektumot amik egymásra tartalmaztak referenciát. Ezeket az objektumokat próbáltam meg RDF modellé alakítani. Az előző teszthez hasonlóan a teszt alkalmazás ismét kilépett `StackOverflowError`-ral:
 
 ![Teszt 3 Java debug](../manual-test/images/test3_debug.png)
 

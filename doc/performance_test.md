@@ -1,5 +1,5 @@
 # Teljesítmény teszt
-A könyvtár teljesítményét úgy vizsgáltam, hogy Java-ban létrehoztam sok objektumból álló gárfokat, majd ezeket a Pinto könyvtár segítségével először RDF modellé alakítottam, majd vissza Java objektumokká.
+A könyvtár teljesítményét úgy vizsgáltam, hogy Java-ban létrehoztam sok objektumból álló gráfokat, majd ezeket a Pinto könyvtár segítségével először RDF modellé alakítottam, majd vissza Java objektumokká.
 
 A tesztelést inkrementálisan végeztem. Először kis objektum struktúrákkal kezdtem, majd folyamatosan emeltem a méretüket, egészen addig amíg a teszt lefutása nem lett túl lassú (~1 óránál több).
 
@@ -17,7 +17,7 @@ A grafikonokon az X tengelyen a gráfok pontjai az Y tengelyen pedig az átalak�
 #### JAVA --> RDF
 ![JAVA --> RDF konverzió grafikon](images/node_to.PNG)
 
-Ahogy a grafikonkról is leolvasható a konverziós idő kb. lineárisan nőtt a pontok számával.
+Ahogy a grafikonokról is leolvasható a konverziós idő kb. lineárisan nőtt a pontok számával.
 
 #### RDF --> JAVA
 ![RDF --> JAVA konverzió grafikon](images/node_from.PNG)
@@ -27,7 +27,7 @@ Ebben az irányban a konverzió sokkal lassabb volt (nagy gráfok esetén), a ko
 #### RDF <--> JAVA
 ![JAVA <--> RDF konverzió grafikon](images/node_combined.PNG)
 
-Ezen a grafikonon a két előző grafikon adatai látszamak logaritmikus skálával (2-es alapú logaritmus). A grafikonról is leolvasható, hogy nagy méretű gráfok estében a JAVA --> RDF koverzió idő lineárisan nőtt (~1 a vonal meredeksége), míg az RDF --> JAVA konverzió idő exponenciálisan nőtt (~2 a vonal meredeksége).
+Ezen a grafikonon a két előző grafikon adatai látszanak logaritmikus skálával (2-es alapú logaritmus). A grafikonról is leolvasható, hogy nagy méretű gráfok estében a JAVA --> RDF koverzió idő lineárisan nőtt (~1 a vonal meredeksége), míg az RDF --> JAVA konverzió idő exponenciálisan nőtt (~2 a vonal meredeksége).
 
 ## Sok él
 A teszt metalálható a `test5` package-ben.

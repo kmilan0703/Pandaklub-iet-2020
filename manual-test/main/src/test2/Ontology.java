@@ -54,5 +54,9 @@ public class Ontology implements Identifiable {
     }
 
     @Override
-    public void id(Resource resource) {}
+    public void id(Resource resource) {
+        /* no operation
+        // This method is overwritten with an empty body on purpose
+         */
+    }
 }

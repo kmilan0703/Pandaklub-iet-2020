@@ -68,4 +68,14 @@ A `main` metódus futtatásakor a teszt elindult, sikeresen beolvasta az ontoló
 
 Ennek az oka nagy valószínűséggel az előző teszt során felfedezett hiba. Mivel a könyvtár átalakításkor minden referenciához egy új objektumot hoz létre a gráfban található kör miatt végtelen rekurzióba kerül, a stack betelik, és a futás leáll.
 
-A javítás egy lehetséges módja, ha átalakításkor számontartaná az eddig létrehozott objektumokat, és ID alapján keresne köztük új objektum létrehozása előtt. 
+A javítás egy lehetséges módja, ha átalakításkor számontartaná az eddig létrehozott objektumokat, és ID alapján keresne köztük új objektum létrehozása előtt.
+
+### Teszt 3
+Az előző tesztben feltárt hiba fordított irányú tesztje. Ebben a tesztben létrehoztam 2 Java objektumot amik egymásra tartalmaztak referenciát. Ezeket az objektumokat próbáltam meg RDF modellé alakítani. Az előző teszthez hasonlóan az teszt alkalmazás ismét kilépett `StackOverflowError`-ral:
+
+![Teszt 3 Java debug](../manual-test/images/test3_debug.png)
+
+Tehát a végtelen rekurzió mindkét irányú konvertálásnál probléma.
+
+### Teszt 4, Teszt 5
+Lásd teljesítmény teszt dokumentáció

@@ -15,7 +15,7 @@
 
 package com.complexible.pinto;
 
-import com.complexible.common.base.Dates;
+import com.complexible.common.Utils;
 import com.complexible.common.base.Option;
 import com.complexible.common.base.Options;
 import com.complexible.common.beans.Beans;
@@ -69,8 +69,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -610,7 +608,7 @@ public final class RDFMapper {
 				}
 			}
 			else if (XMLSchema.DATE.equals(aDatatype) || XMLSchema.DATETIME.equals(aDatatype)) {
-				return Dates2.asDate(aLit.getLabel());
+				return Utils.asDate(aLit.getLabel());
 			}
 			else if (XMLSchema.TIME.equals(aDatatype)) {
 				return new Date(Long.parseLong(aLit.getLabel()));
@@ -779,7 +777,7 @@ public final class RDFMapper {
 			return mValueFactory.createLiteral(Float.class.cast(theObj).floatValue());
 		}
 		else if (Date.class.isInstance(theObj)) {
-			return mValueFactory.createLiteral(Dates2.datetimeISO(Date.class.cast(theObj)), XMLSchema.DATETIME);
+			return mValueFactory.createLiteral(Utils.datetimeISO(Date.class.cast(theObj)), XMLSchema.DATETIME);
 		}
 		else if (String.class.isInstance(theObj)) {
 			if (theAnnotation != null && !theAnnotation.language().equals("")) {
@@ -1222,22 +1220,6 @@ public final class RDFMapper {
 					throw new RuntimeException("Unknown or unsupported collection type for a field: " + aType);
 				}
 			}
-		}
-	}
-
-	// todo: move to commons-utils
-	private static final class Dates2 {
-		public static Date asDate(final String theDate) {
-			try {
-				return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(theDate);
-			}
-			catch (ParseException pe) {
-				return Dates.asDate(theDate);
-			}
-		}
-
-		public static String datetimeISO(Date theDate) {
-			return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(theDate);
 		}
 	}
 }

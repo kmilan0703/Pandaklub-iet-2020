@@ -5,7 +5,7 @@ Egy program vagy keretrendszer felhasználhatóságának növeléséhez 5 alapel
 **1. Tanulhatóság**
 
 A keretrendszer ennek a szempontnak megfelel, szintaxisa és használata egyszerű, így könnyen tanulható. Egy egyszerű, pl. Személy osztályból, melynek van getter-setter-e, már az alábbi egy sorral könnyen szerializálhatjuk RDF formátumba: 
-Graph aGraph = RDFMapper.create().writeValue(new Person("Michael Grove"));
+`Graph aGraph = RDFMapper.create().writeValue(new Person("Michael Grove"));`
 
 **2. Hatékonyság**
 

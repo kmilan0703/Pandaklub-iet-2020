@@ -14,8 +14,6 @@
  */
 
 package com.complexible.common.beans;
-
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Date;
 

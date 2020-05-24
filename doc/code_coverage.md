@@ -12,4 +12,4 @@ A projekt importálásakor:
 ![Sonar kezdéskor](images/before-sonar.png)
 
 A módosítások után:
-![Sonar végén](images/after-sonar.png)
+![Sonar végén](images/after-sonar.PNG)

@@ -20,7 +20,7 @@ Kettő nagyobb code smell-et is javítottunk a projektben:
 
 Kezdetben a code coverage 68.7 %-on állt: 
 
-![](images/before-sonar.PNG)
+![](images/before-sonar.png)
 
 Végeredményként ezt 74%-ra sikerült javítanunk:
 

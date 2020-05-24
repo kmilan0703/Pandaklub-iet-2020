@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Utils {
+    private Utils() {}
+
     public static Date asDate(final String theDate) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(theDate);

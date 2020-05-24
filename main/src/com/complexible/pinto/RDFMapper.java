@@ -349,10 +349,10 @@ public final class RDFMapper {
 		return aInst;
 	}
 
-	private Class type(final Model theGraph, final Resource theValue) {
+	private Class<?> type(final Model theGraph, final Resource theValue) {
 		final Iterable<Resource> aTypes = Models2.getTypes(theGraph, theValue);
 		for (Resource aType : aTypes) {
-			final Class aClass = mMappings.get(aType);
+			final Class<?> aClass = mMappings.get(aType);
 			if (aClass != null){
 				return aClass;
 			}
@@ -513,7 +513,7 @@ public final class RDFMapper {
 		}
 	}
 
-	private IRI enumToURI(final Enum theEnum) {
+	private IRI enumToURI(final Enum<?> theEnum) {
 		try {
 			final Iri aAnnotation = theEnum.getClass().getField(theEnum.name()).getAnnotation(Iri.class);
 
@@ -616,7 +616,11 @@ public final class RDFMapper {
 				return new Date(Long.parseLong(aLit.getLabel()));
 			}
 			else {
-				throw new RuntimeException("Unsupported or unknown literal datatype: " + aLit);
+				try {
+					throw new MyOwnRuntime("Unsupported or unknown literal datatype: " + aLit);
+				} catch (MyOwnRuntime e) {
+					LOGGER.info(e.toString());
+				}
 			}
 		}
 		else if (theDescriptor != null && Enum.class.isAssignableFrom(theDescriptor.getPropertyType())) {
@@ -663,9 +667,11 @@ public final class RDFMapper {
 		} else {
 			return null;
 		}
+		return null;
 	}
 
-	private Class pinpointClass(final Model theGraph, final Resource theResource, final PropertyDescriptor theDescriptor) {
+
+	private Class<?> pinpointClass(final Model theGraph, final Resource theResource, final PropertyDescriptor theDescriptor) {
 		Class<?>  aClass = theDescriptor.getPropertyType();
 
 		if (Collection.class.isAssignableFrom(aClass)) {
@@ -725,7 +731,7 @@ public final class RDFMapper {
 				}
 			}
 			else {
-				LOGGER.info("Could not find type for collection %s", aClass);
+				LOGGER.info(String.format("Could not find type for collection %s",  aClass));
 			}
 		}
 		else if (!Classes.isInstantiable(aClass) || !Classes.hasDefaultConstructor(aClass)) {
@@ -1138,7 +1144,7 @@ public final class RDFMapper {
 	 * @see DefaultCollectionFactory
 	 */
 	public interface CollectionFactory {
-		public Collection create(final PropertyDescriptor thePropertyDescriptor);
+		public Collection<?> create(final PropertyDescriptor thePropertyDescriptor);
 	}
 
 	/**
@@ -1238,6 +1244,12 @@ public final class RDFMapper {
 
 		public static String datetimeISO(Date theDate) {
 			return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(theDate);
+		}
+	}
+
+	private class MyOwnRuntime extends Throwable {
+		public MyOwnRuntime(String s) {
+			LOGGER.info(s);
 		}
 	}
 }

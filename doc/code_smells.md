@@ -3,6 +3,7 @@
 A kód minőségén a fájlokban található code smell-ek refaktorálásával javítottunk. Ezeket Sonar segítségével kerestük meg. 
 ![](images/sonar.PNG)
 
+A kezdeti 68 kód smell-ből a végére már csak 30 maradt. 
 
 Voltak nagyon gyorsan és könnyen kijavítható code smell-ek, például:
 -egy objektumot új sorba kellett inicializálni, nem az előzővel összevonni

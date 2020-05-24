@@ -2,9 +2,9 @@ package com.complexible.pinto.impl;
 
 import static com.complexible.common.io.MMapUtil.LOGGER;
 
-public class MyOwnRuntime extends RuntimeException {
+public class UnsupportedLiteralException extends RuntimeException {
 
-        public MyOwnRuntime(String s) {
+        public UnsupportedLiteralException(String s) {
             LOGGER.info(s);
         }
 

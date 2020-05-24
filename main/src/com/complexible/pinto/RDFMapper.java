@@ -31,7 +31,8 @@ import com.complexible.pinto.annotations.RdfId;
 import com.complexible.pinto.annotations.RdfProperty;
 import com.complexible.pinto.annotations.RdfsClass;
 
-import com.complexible.pinto.impl.MyOwnRuntime;
+
+import com.complexible.pinto.impl.UnsupportedLiteralException;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
@@ -617,7 +618,7 @@ public final class RDFMapper {
 				return new Date(Long.parseLong(aLit.getLabel()));
 			}
 			else {
-				throw new MyOwnRuntime("Unsupported or unknown literal datatype: " + aLit);
+				throw new UnsupportedLiteralException("Unsupported or unknown literal datatype: " + aLit);
 			}
 		}
 		else if (theDescriptor != null && Enum.class.isAssignableFrom(theDescriptor.getPropertyType())) {

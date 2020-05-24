@@ -31,6 +31,7 @@ import com.complexible.pinto.annotations.RdfId;
 import com.complexible.pinto.annotations.RdfProperty;
 import com.complexible.pinto.annotations.RdfsClass;
 
+import com.complexible.pinto.impl.MyOwnRuntime;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
@@ -616,11 +617,7 @@ public final class RDFMapper {
 				return new Date(Long.parseLong(aLit.getLabel()));
 			}
 			else {
-				try {
-					throw new MyOwnRuntime("Unsupported or unknown literal datatype: " + aLit);
-				} catch (MyOwnRuntime e) {
-					LOGGER.info(e.toString());
-				}
+				throw new MyOwnRuntime("Unsupported or unknown literal datatype: " + aLit);
 			}
 		}
 		else if (theDescriptor != null && Enum.class.isAssignableFrom(theDescriptor.getPropertyType())) {
@@ -664,8 +661,6 @@ public final class RDFMapper {
 			else {
 				return readValue(theGraph, aClass, aResource);
 			}
-		} else {
-			return null;
 		}
 		return null;
 	}
@@ -1247,9 +1242,5 @@ public final class RDFMapper {
 		}
 	}
 
-	private class MyOwnRuntime extends Throwable {
-		public MyOwnRuntime(String s) {
-			LOGGER.info(s);
-		}
-	}
+
 }

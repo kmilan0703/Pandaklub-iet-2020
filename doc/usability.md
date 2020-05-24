@@ -9,7 +9,7 @@ A keretrendszer ennek a szempontnak megfelel, szintaxisa és használata egyszer
 
 **2. Hatékonyság**
 
-A hatékonyságot a teljesítményteszttel tudjuk a legjobban mérni. A projektünkben a doc/performance_test.md fájlban található ennek az eredménye, melynek alapján az mondható, hogy hatékonyságból nem a legmegfelelőbb a rendszer. Az RDF<--> Java konverzió esetében az egyre szaporodó pontok esetében a konverziós idő már exponenciálisan növekedett, ami nagyobb adatok feldolgozása esetén már hátrány lehet. 
+A hatékonyságot a teljesítményteszttel tudjuk a legjobban mérni. A projektünkben a doc/performance_test.md fájlban található ennek az eredménye, melynek alapján az mondható, hogy hatékonyságból nem a legmegfelelőbb a rendszer. Az RDF--> Java konverzió esetében az egyre növekvő modell esetében a konverziós idő már exponenciálisan növekedett, ami nagyobb adatok feldolgozása esetén már hátrány lehet. 
 
 **3. Megjegyezhetőség**
 
